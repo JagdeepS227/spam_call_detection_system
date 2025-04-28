@@ -1,0 +1,66 @@
+
+##################################################
+Creating new user:
+POST
+http://127.0.0.1:8000/auth/users/
+{
+  "phone_number": "9876543220",
+  "name": "Jagdeep",
+  "password": "Strong@123",
+  "re_password": "Strong@123"
+}
+
+
+################################################
+Logging in existing User
+POST
+http://127.0.0.1:8000/auth/token/login/
+{
+  "phone_number": "9876543210",
+  "password": "Strong@123"
+}
+
+This will return Authorization token as response!
+
+
+################################################
+Creating contacts
+POST
+http://127.0.0.1:8000/api/contacts/
+Authorisation: Token <token value you get after login>
+{
+  "name": "Dileep Sharma",
+  "phone_number": "9876555210"
+}
+
+
+Listing all Contacts:
+GET
+http://127.0.0.1:8000/api/contacts/
+Authorisation: Token <token value you get after login>
+
+
+
+##############################################
+Reporting a number as spam
+
+POST
+http://127.0.0.1:8000/api/report-spam/
+Authorisation: Token <token value you get after login>
+
+##############################################
+
+Searching for a number or name
+
+GET
+localhost:8000/api/search/?q=<name(partial or full)/phone number>
+Authorisation: Token <token value you get after login>
+
+This returns paginated(only if searched with name) results of matches, where each of results contains info like following:
+{
+    "name": "Jonathan Clark",
+    "phone_number": "6529280088",
+    "email": null,
+    "spam_count": 3,
+    "spam_likelihood": "Medium"
+}
